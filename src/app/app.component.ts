@@ -1,4 +1,21 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import lessValue from '../assets/theme.js';
+import {changesValue, add} from './default';
+
+let worker = null;
+
+if (typeof Worker !== 'undefined') {
+  // Create a new
+  worker = new Worker('./app.worker', {type: 'module'});
+  worker.onmessage = ({data}) => {
+    createStyle(data.css);
+  };
+  worker.postMessage(lessValue);
+} else {
+  // Web Workers are not supported in this environment.
+  // You should add a fallback so that your program still executes correctly.
+}
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +24,37 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'less-webworker-demo';
+  btnPrimaryColor = '';
+  btnPrimaryBg = '';
+  btnHeightBase = '';
+  btnHeightLg = '';
+  btnHeightSm = '';
+  heightBase = '';
+
+  constructor() {
+  }
+
+  handle() {
+    // '@color: red' + '@color: white'
+    worker.postMessage(lessValue + changesValue());
+  }
+
+  change(key: string) {
+    add(key, this[key]);
+    console.log(
+      changesValue()
+    );
+  }
 }
+
+
+const createStyle = (html) => {
+  const head = document.querySelector('head');
+  let style = document.getElementById('test');
+  if (!style) {
+    style = document.createElement('style');
+    style.id = 'test';
+  }
+  style.innerHTML = html;
+  head.appendChild(style);
+};
