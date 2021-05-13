@@ -45,4 +45,6 @@ fs.writeFileSync(outputFilePath, `
 let lessValue = ${JSON.stringify(css)};
 module.exports = lessValue;
 `)
+
+fs.writeFileSync(path.join(__dirname, '../src/assets/theme.less'), css)
 console.log('success')
