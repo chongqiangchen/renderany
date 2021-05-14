@@ -1,13 +1,24 @@
-<button nz-button nzType="primary" (click)="handle()">测试</button>
-<br />
-<input placeholder="@btn-primary-color" [(ngModel)]="btnPrimaryColor" (ngModelChange)="change('btnPrimaryColor')" />
-<input placeholder="@btn-primary-bg: @primary-color;" [(ngModel)]="btnPrimaryBg" (ngModelChange)="change('btnPrimaryBg')" />
-<input placeholder="@btn-height-base" [(ngModel)]="btnHeightBase" (ngModelChange)="change('btnHeightBase')" />
-<input placeholder="@btn-height-lg" [(ngModel)]="btnHeightLg" (ngModelChange)="change('btnHeightLg')" />
-<input placeholder="@btn-height-sm" [(ngModel)]="btnHeightSm" (ngModelChange)="change('btnHeightSm')" />
-<input placeholder="@height-base" [(ngModel)]="heightBase" (ngModelChange)="change('heightBase')" />
 
 
-<!--@btn-height-base: @height-base;-->
-<!--@btn-height-lg: @height-lg;-->
-<!--@btn-height-sm: @height-sm;-->
+<nz-code-editor
+  class="editor"
+  [nzEditorOption]="{theme: 'vs-dark'}"
+  [nzFullControl]="true"
+  (nzEditorInitialized)="onEditorInit($event)"
+  [nzToolkit]="toolkit"
+></nz-code-editor>
+
+<ng-template #toolkit>
+  <nz-select class="select" [(ngModel)]="language" (ngModelChange)="changeLanguage()">
+    <nz-option nzValue="less" nzLabel="Less"></nz-option>
+    <nz-option nzValue="scss" nzLabel="Scss"></nz-option>
+  </nz-select>
+</ng-template>
+
+
+<nz-code-editor
+  class="editor"
+  [nzEditorOption]="{theme: 'vs-dark'}"
+  [nzFullControl]="true"
+  (nzEditorInitialized)="onResultEditorInit($event)"
+></nz-code-editor>
