@@ -7,8 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "less2sass": "less2sass ./src/assets/theme.less"
+    "e2e": "ng e2e"
   },
   "browser": {
     "fs": false,
@@ -27,10 +26,9 @@
     "@angular/router": "~10.2.4",
     "less": "^3.13.1",
     "lodash": "^4.17.21",
+    "monaco-editor": "^0.24.0",
     "ng-zorro-antd": "^11.3.0",
-    "node-sass": "^5.0.0",
     "rxjs": "~6.6.0",
-    "sass": "^1.32.12",
     "sass.js": "^0.11.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

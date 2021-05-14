@@ -31,7 +31,12 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/monaco-editor/min/vs",
+                "output": "/assets/vs/"
+              }
             ],
             "styles": [
               "src/styles.less"
@@ -131,6 +136,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "less-webworker-demo"
 }
