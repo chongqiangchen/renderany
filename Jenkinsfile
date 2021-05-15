@@ -18,7 +18,8 @@ pipeline {
         stage('环境准备') {
             steps {
                 sh 'node --max-old-space-size=5120'
-                sh 'npm ci'
+                sh 'rm -rf node_modules'
+                sh 'npm i'
                 sh 'npm run build'
             }
         }
