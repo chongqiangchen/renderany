@@ -1,5 +1,8 @@
+properties([pipelineTriggers([githubPush()])])
+
 pipeline {
     agent any
+
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
@@ -8,30 +11,30 @@ pipeline {
     }
 
     stages {
-        stage('环境准备') {
+        /* checkout repo */
+        stage('Checkout SCM') {
             steps {
-                echo '****************************** ng start... ******************************'
-                sh 'npm install'
-                sh 'npm run build'
+                checkout([
+                 $class: 'GitSCM',
+                 branches: [[name: 'dev']],
+                 userRemoteConfigs: [[
+                    url: 'https://github.com/chongqiangchen/renderany.git',
+                    credentialsId: 'da3e7885-1696-4f3b-8544-dd2c1ef4966d',
+                 ]]
+                ])
             }
         }
-
-        stage('构建Docker镜像') {
+         stage('Do the deployment') {
             steps {
-                echo '****************************** delete container and image... ******************************'
-                sh 'docker ps -a|grep $NAME|awk \'{print $1}\'|xargs -i docker stop {}|xargs -i docker rm {}'
-                sh 'docker images|grep $NAME|grep dev|awk \'{print $3}\'|xargs -i docker rmi {}'
-
-                echo '****************************** build image... ******************************'
-                sh 'docker build --build-arg PROFILE=dev -t $APP .'
-            }
-        }
-
-        stage('运行容器') {
-            steps {
-                echo '****************************** run start... ******************************'
-                sh 'docker run -d -p $APP_PORT:80 --restart=always --name $NAME $APP'
+                echo ">> Run deploy applications "
             }
         }
     }
+
+    /* Cleanup workspace */
+    post {
+       always {
+           deleteDir()
+       }
+   }
 }
