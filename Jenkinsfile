@@ -9,9 +9,9 @@ pipeline {
 
     stages {
         stage('Test'){
+           def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+           env.PATH = "${nodeHome}/bin:${env.PATH}"
           steps {
-               def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-               env.PATH = "${nodeHome}/bin:${env.PATH}"
                sh 'npm -version'
           }
         }
