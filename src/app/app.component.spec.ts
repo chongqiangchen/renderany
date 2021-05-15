@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'less-webworker-demo'`, () => {
+  it(`should have as title 'renderany'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('less-webworker-demo');
+    expect(app.title).toEqual('renderany');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('less-webworker-demo app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('renderany app is running!');
   });
 });
