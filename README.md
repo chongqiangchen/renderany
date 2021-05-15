@@ -9,5 +9,5 @@
 
 
 #### Supports
-[x] SCSS
-[x] LESS
+- [x] SCSS
+- [x] LESS

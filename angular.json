@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "less-webworker-demo": {
+    "renderany": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
                 "plugins": "append"
               }
             },
-            "outputPath": "dist/less-webworker-demo",
+            "outputPath": "dist/renderany",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -78,18 +78,18 @@
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "less-webworker-demo:build"
+            "browserTarget": "renderany:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "less-webworker-demo:build:production"
+              "browserTarget": "renderany:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "less-webworker-demo:build"
+            "browserTarget": "renderany:build"
           }
         },
         "test": {
@@ -127,16 +127,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "less-webworker-demo:serve"
+            "devServerTarget": "renderany:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "less-webworker-demo:serve:production"
+              "devServerTarget": "renderany:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "less-webworker-demo"
+  "defaultProject": "renderany"
 }
