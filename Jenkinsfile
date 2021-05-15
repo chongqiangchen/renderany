@@ -1,18 +1,17 @@
 pipeline {
     agent any
-    def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-    env.PATH = "${nodeHome}/bin:${env.PATH}"
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
         APP = 'registry.cn-hangzhou.aliyuncs.com/chongqiangchen/renderany:dev'
         APP_PORT = 80
+        NODE_HOME = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
     }
 
     stages {
         stage('Test'){
           steps {
-               sh 'npm -version'
+               sh '${NODE_HOME}/bin/npm -version'
           }
         }
         stage('环境准备') {
