@@ -1,40 +1,15 @@
-properties([pipelineTriggers([githubPush()])])
-
 pipeline {
     agent any
-
-    environment {
-        NAME = 'renderany'
-        PROFILE = 'dev'
-        APP = 'registry.cn-hangzhou.aliyuncs.com/chongqiangchen/renderany:dev'
-        APP_PORT = 80
-    }
-
     stages {
-        /* checkout repo */
-        stage('Checkout SCM') {
+        stage('Test') {
             steps {
-                checkout([
-                 $class: 'GitSCM',
-                 branches: [[name: 'dev']],
-                 userRemoteConfigs: [[
-                    url: 'https://github.com/chongqiangchen/renderany.git',
-                    credentialsId: 'da3e7885-1696-4f3b-8544-dd2c1ef4966d',
-                 ]]
-                ])
+                sh './gradlew test'
             }
         }
-         stage('Do the deployment') {
+        stage('Build') {
             steps {
-                echo ">> Run deploy applications "
+                sh './gradlew clean build'
             }
         }
     }
-
-    /* Cleanup workspace */
-    post {
-       always {
-           deleteDir()
-       }
-   }
 }
