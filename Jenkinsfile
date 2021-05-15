@@ -1,17 +1,18 @@
 pipeline {
-    agent any
+    agent {
+      docker { image 'node:14.16.0' }
+    }
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
         APP = 'registry.cn-hangzhou.aliyuncs.com/chongqiangchen/renderany:dev'
         APP_PORT = 80
-        NODE_HOME = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
     }
 
     stages {
         stage('Test'){
           steps {
-               sh '${NODE_HOME}/bin/npm -version'
+               sh 'npm -version'
           }
         }
         stage('环境准备') {
