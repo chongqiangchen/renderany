@@ -1,15 +1,19 @@
 pipeline {
     agent any
-    stages {
-        stage('Test') {
-            steps {
-                sh './gradlew test'
-            }
+
+    triggers {
+      pollSCM('H/2 * * * *')
+    }
+
+    options {
+      timeout(time: 10, unit: 'MINUTES')
+    }
+
+    stages{
+      stage("install"){
+        steps{
+          sh "yarn install"
         }
-        stage('Build') {
-            steps {
-                sh './gradlew clean build'
-            }
-        }
+      }
     }
 }
