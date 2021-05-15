@@ -1,5 +1,7 @@
 pipeline {
     agent any
+    def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+    env.PATH = "${nodeHome}/bin:${env.PATH}"
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
@@ -9,8 +11,6 @@ pipeline {
 
     stages {
         stage('Test'){
-           def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-           env.PATH = "${nodeHome}/bin:${env.PATH}"
           steps {
                sh 'npm -version'
           }
