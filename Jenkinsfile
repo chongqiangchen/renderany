@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-          image 'node:14.16.0'
-        }
-    }
+    agent any
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
@@ -13,9 +9,11 @@ pipeline {
 
     stages {
         stage('Test'){
-          def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-          env.PATH = "${nodeHome}/bin:${env.PATH}"
-          sh 'npm -version'
+          steps {
+               def nodeHome = tool name: 'nodejs', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+               env.PATH = "${nodeHome}/bin:${env.PATH}"
+               sh 'npm -version'
+          }
         }
         stage('环境准备') {
             steps {
