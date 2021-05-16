@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-      docker { image 'node:14.16.0' }
-    }
+    agent any
     environment {
         NAME = 'renderany'
         PROFILE = 'dev'
@@ -10,17 +8,21 @@ pipeline {
     }
 
     stages {
-        stage('Test'){
-          steps {
-               sh 'npm -version'
-          }
-        }
         stage('环境准备') {
-            steps {
-                sh 'rm -rf node_modules'
-                sh 'npm i'
-                sh 'npm run build'
+          parallel{
+            stage('Front End Build: Angular') {
+                agent {
+                    docker {
+                       image 'node:14.16.0'
+                    }
+                }
+                steps {
+                   sh 'rm -rf node_modules'
+                   sh 'npm i'
+                   sh 'npm run build'
+                }
             }
+          }
         }
 
         stage('构建Docker镜像') {
